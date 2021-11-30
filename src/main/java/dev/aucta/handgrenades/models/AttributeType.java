@@ -21,11 +21,7 @@ public class AttributeType {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany( mappedBy = "attributeType", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "attributeType", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Attribute> attributes;
-
-
-
-
 }

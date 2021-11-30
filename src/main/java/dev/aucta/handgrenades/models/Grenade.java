@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="GRENADES")
+@Table(name = "GRENADES")
 @Getter
 @Setter
 public class Grenade {
@@ -25,7 +25,7 @@ public class Grenade {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany( mappedBy = "grenade",cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "grenade", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Attribute> attributes;
 
@@ -39,8 +39,7 @@ public class Grenade {
 
     @OneToMany(mappedBy = "grenade", fetch = FetchType.LAZY)
     private List<Picture> pictures;
-
-
-
-
 }
+
+
+
