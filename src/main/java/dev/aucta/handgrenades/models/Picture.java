@@ -1,6 +1,5 @@
 package dev.aucta.handgrenades.models;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

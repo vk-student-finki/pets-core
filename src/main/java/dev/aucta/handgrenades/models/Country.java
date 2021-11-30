@@ -1,6 +1,5 @@
 package dev.aucta.handgrenades.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +20,4 @@ public class Country {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "country", fetch=FetchType.LAZY)
-    @JsonIgnore
-    private List<Grenade> grenades;
 }
