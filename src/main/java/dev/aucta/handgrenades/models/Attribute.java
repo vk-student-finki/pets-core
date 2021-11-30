@@ -26,6 +26,4 @@ public class Attribute {
     @ManyToOne
     @JoinColumn(name = "GRENADE_ID")
     private Grenade grenade;
-
-
 }

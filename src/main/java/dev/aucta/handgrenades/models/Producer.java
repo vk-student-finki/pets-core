@@ -20,8 +20,4 @@ public class Producer {
 
     @Column(name = "NAME")
     private String name;
-
-    @OneToMany( mappedBy = "producer", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Grenade> grenades;
 }

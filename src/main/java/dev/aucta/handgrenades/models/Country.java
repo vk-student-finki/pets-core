@@ -20,8 +20,4 @@ public class Country {
 
     @Column(name = "NAME")
     private String name;
-
-    @OneToMany(mappedBy = "country", fetch=FetchType.LAZY)
-    @JsonIgnore
-    private List<Grenade> grenades;
 }
