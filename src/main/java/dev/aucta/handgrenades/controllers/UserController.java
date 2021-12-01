@@ -56,7 +56,7 @@ public class UserController {
             @PathVariable("id") Long userId,
             @RequestBody Group group
             ){
-        return userService.addGroup(userId,group);
+        return userService.addGroup(userId, group);
     }
 
     @RequestMapping(path = "/{id}/removeGroup",method = RequestMethod.DELETE)
@@ -64,7 +64,7 @@ public class UserController {
             @PathVariable("id") Long userId,
             @RequestBody Group group
     ){
-        return userService.removeGroup(userId,group);
+        return userService.removeGroup(userId, group);
     }
 
 }

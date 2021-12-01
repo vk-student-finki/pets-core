@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,8 @@ public class Privilege {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    //TODO json ignore
+    @JsonIgnore
     @JoinTable(
             name = "GROUPS_PRIVILEGES",
             joinColumns = @JoinColumn(name = "PRIVILEGE_ID"),

@@ -44,16 +44,17 @@ public class UserService {
 
     public User addGroup(Long userId, Group group) {
         User user = repository.findById(userId).orElse(null);
-        group.getUsers().add(user);
         user.getGroups().add(group);
         return repository.save(user);
     }
 
     public User removeGroup(Long userId, Group group) {
-
         User user = repository.findById(userId).orElse(null);
-        Group groupToRemove = user.getGroups().stream().filter(group1 ->
-                group1.getId().equals(group.getId())).findFirst().orElse(null);
+        Group groupToRemove = user.getGroups()
+                .stream()
+                .filter(group1 -> group1.getId().equals(group.getId()))
+                .findFirst()
+                .orElse(null);
         user.getGroups().remove(groupToRemove);
         return repository.save(user);
     }

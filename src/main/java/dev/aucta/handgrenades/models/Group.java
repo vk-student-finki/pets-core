@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class Group {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(
             name="USERS_GROUPS",
             joinColumns = @JoinColumn( name="GROUP_ID"),
