@@ -17,12 +17,12 @@ public class GrenadeService {
         return grenadeRepository.findAll(pageable);
     }
 
-    public Grenade get(Long id){
+    public Grenade get(Long id) {
         Grenade grenade = grenadeRepository.getById(id);
         return grenade;
     }
 
-    public Grenade create (Grenade grenade){
+    public Grenade create(Grenade grenade) {
         if (grenade.getAttributes() != null) {
             grenade.getAttributes().forEach(attribute -> {
                 attribute.setGrenade(grenade);
@@ -31,8 +31,8 @@ public class GrenadeService {
         return grenadeRepository.save(grenade);
     }
 
-    public Grenade update(Grenade grenade){
-        if (grenade.getAttributes() != null){
+    public Grenade update(Grenade grenade) {
+        if (grenade.getAttributes() != null) {
             grenade.getAttributes().forEach(attribute -> {
                 attribute.setGrenade(grenade);
             });

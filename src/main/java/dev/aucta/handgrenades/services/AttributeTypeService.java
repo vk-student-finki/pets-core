@@ -21,25 +21,15 @@ public class AttributeTypeService {
         return attributeTypeRepository.findAll(pageable);
     }
 
-    public List<AttributeType> findAllById(Long id){
+    public List<AttributeType> findAllById(Long id) {
         return attributeTypeRepository.findAllById(id);
     }
 
     public AttributeType create(AttributeType attributeType) {
-        if(attributeType.getAttributes()!=null){
-            attributeType.getAttributes().forEach(attribute -> {
-                attribute.setAttributeType(attributeType);
-            });
-        }
         return attributeTypeRepository.save(attributeType);
     }
 
     public AttributeType update(AttributeType attributeType) {
-        if(attributeType.getAttributes()!=null){
-            attributeType.getAttributes().forEach(attribute -> {
-                attribute.setAttributeType(attributeType);
-            });
-        }
         return attributeTypeRepository.save(attributeType);
     }
 

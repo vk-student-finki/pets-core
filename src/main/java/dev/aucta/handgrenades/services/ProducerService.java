@@ -13,24 +13,24 @@ public class ProducerService {
     @Autowired
     ProducerRepository producerRepository;
 
-    public Page<Producer> all(Pageable pageable){
+    public Page<Producer> all(Pageable pageable) {
         return producerRepository.findAll(pageable);
     }
 
-    public Producer get(Long id){
+    public Producer get(Long id) {
         Producer producer = producerRepository.getById(id);
         return producer;
     }
 
-    public Producer create(Producer producer){
+    public Producer create(Producer producer) {
         return producerRepository.save(producer);
     }
 
-    public Producer update(Producer producer){
+    public Producer update(Producer producer) {
         return producerRepository.save(producer);
     }
 
-    public Boolean delete(Long id){
+    public Boolean delete(Long id) {
         producerRepository.deleteById(id);
         return Boolean.TRUE;
     }

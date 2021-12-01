@@ -18,35 +18,35 @@ public class CountryController {
     public Page<Country> all(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ){
+    ) {
         return countryService.all(PageRequest.of(page, size));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Country get(
             @PathVariable("id") Long id
-    ){
+    ) {
         return countryService.get(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Country create(
             @RequestBody Country country
-    ){
+    ) {
         return countryService.create(country);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public Country update(
             @RequestBody Country country
-    ){
+    ) {
         return countryService.update(country);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public Boolean delete(
             @PathVariable("id") Long id
-    ){
+    ) {
         return countryService.delete(id);
     }
 }

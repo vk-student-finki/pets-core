@@ -33,9 +33,9 @@ public class User extends CustomUserDetails {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="USERS_GROUPS",
-            joinColumns = @JoinColumn( name="USER_ID"),
-            inverseJoinColumns = @JoinColumn( name="GROUP_ID")
+            name = "USERS_GROUPS",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID")
     )
     private List<Group> groups = new ArrayList<>();
 
@@ -46,5 +46,6 @@ public class User extends CustomUserDetails {
         super(user);
     }
 
-    public User(){}
+    public User() {
+    }
 }

@@ -25,9 +25,9 @@ public class Privilege {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="GROUPS_PRIVILEGES",
-            joinColumns = @JoinColumn( name="PRIVILEGE_ID"),
-            inverseJoinColumns = @JoinColumn( name="GROUP_ID")
+            name = "GROUPS_PRIVILEGES",
+            joinColumns = @JoinColumn(name = "PRIVILEGE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID")
     )
     List<Group> groups;
 }

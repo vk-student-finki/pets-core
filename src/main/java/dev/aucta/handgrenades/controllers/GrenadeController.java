@@ -18,35 +18,35 @@ public class GrenadeController {
     public Page<Grenade> all(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ){
+    ) {
         return grenadeService.all(PageRequest.of(page, size));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Grenade get(
             @PathVariable("id") Long id
-    ){
+    ) {
         return grenadeService.get(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Grenade create(
             @RequestBody Grenade grenade
-    ){
+    ) {
         return grenadeService.create(grenade);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public Grenade update(
             @RequestBody Grenade grenade
-    ){
+    ) {
         return grenadeService.update(grenade);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public Boolean delete(
             @PathVariable("id") Long id
-    ){
+    ) {
         return grenadeService.delete(id);
     }
 }
