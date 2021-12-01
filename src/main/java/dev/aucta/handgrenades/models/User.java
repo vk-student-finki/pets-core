@@ -31,7 +31,7 @@ public class User extends CustomUserDetails {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USERS_GROUPS",
             joinColumns = @JoinColumn(name = "USER_ID"),

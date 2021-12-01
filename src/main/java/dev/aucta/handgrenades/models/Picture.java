@@ -23,7 +23,8 @@ public class Picture {
     private String filePath;
 
     @Column(name = "TYPE")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private PictureType type;
 
     @ManyToOne
     @JoinColumn(name = "GRENADE_ID")
