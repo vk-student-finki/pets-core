@@ -21,7 +21,8 @@ public class PrivilegeController {
     public Page<Privilege> getAll(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ){
+    ) throws InterruptedException {
+//        Thread.sleep(2000);
         return privilegeService.getAll(PageRequest.of(page, size));
     }
 

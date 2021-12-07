@@ -18,10 +18,10 @@ public class Group {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "CODE")
+    @Column(name = "CODE", unique = true)
     private String code;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)

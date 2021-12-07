@@ -19,7 +19,8 @@ public class UserController {
     public Page<User> getAll(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ) {
+    ) throws InterruptedException {
+//        Thread.sleep(2000);
         return userService.getAll(PageRequest.of(page, size));
     }
 
@@ -40,7 +41,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT)
     public User update(
             @RequestBody User user
-    ) {
+    ) throws InterruptedException {
+//        Thread.sleep(2000);
         return userService.update(user);
     }
 

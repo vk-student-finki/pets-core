@@ -19,7 +19,8 @@ public class GroupController {
     public Page<Group> getAll(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ){
+    ) throws InterruptedException {
+//        Thread.sleep(2000);
         return groupService.getAll(PageRequest.of(page, size));
     }
 
@@ -42,6 +43,14 @@ public class GroupController {
             @RequestBody Group group
     ){
         return groupService.update(group);
+
+    }
+
+    @RequestMapping(path="/{id}",method = RequestMethod.DELETE)
+    public Boolean delete(
+            @PathVariable("id") Long id
+    ){
+        return groupService.delete(id);
     }
 
     @RequestMapping(path = "/{id}/addPrivilege", method = RequestMethod.PUT)

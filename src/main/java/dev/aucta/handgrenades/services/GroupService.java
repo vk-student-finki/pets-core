@@ -48,4 +48,9 @@ public class GroupService {
         group.getPrivileges().remove(privilegeToRemove);
         return groupRepository.save(group);
     }
+
+    public Boolean delete(Long id) {
+        groupRepository.deleteById(id);
+        return Boolean.TRUE;
+    }
 }
