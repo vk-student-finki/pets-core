@@ -58,4 +58,9 @@ public class UserService {
         user.getGroups().remove(groupToRemove);
         return repository.save(user);
     }
+
+    public User findByUsername(String username){
+        User user = repository.findByUsername(username);
+        return user;
+    }
 }

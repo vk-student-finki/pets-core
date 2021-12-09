@@ -5,6 +5,8 @@ import dev.aucta.handgrenades.auth.JwtUtil;
 import dev.aucta.handgrenades.auth.MyUserDetailsService;
 import dev.aucta.handgrenades.auth.models.AuthenticationRequest;
 import dev.aucta.handgrenades.auth.models.AuthenticationResponse;
+import dev.aucta.handgrenades.models.User;
+import dev.aucta.handgrenades.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,15 +31,22 @@ public class AuthController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
+            User user = userService.findByUsername(authenticationRequest.getUsername());
+            if(user == null){
+                throw new Exception("Username does not exist");
+            }
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         }
         catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            throw new Exception("Incorrect username or password");
         }
 
         final CustomUserDetails userDetails = userDetailsService
