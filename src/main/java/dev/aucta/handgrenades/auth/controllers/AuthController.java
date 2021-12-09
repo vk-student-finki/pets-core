@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.auth.controllers;
 
+import dev.aucta.handgrenades.auth.CustomUserDetails;
 import dev.aucta.handgrenades.auth.JwtUtil;
 import dev.aucta.handgrenades.auth.MyUserDetailsService;
 import dev.aucta.handgrenades.auth.models.AuthenticationRequest;
@@ -39,7 +40,7 @@ public class AuthController {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = userDetailsService
+        final CustomUserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);

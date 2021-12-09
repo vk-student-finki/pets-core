@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new SimpleCorsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests().antMatchers(
                         "/auth/authenticate").permitAll()
-                .antMatchers("/foo/protected").authenticated()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/users/create").permitAll()
+//                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
