@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.services;
 
+import dev.aucta.handgrenades.auth.CustomUserDetails;
 import dev.aucta.handgrenades.models.Group;
 import dev.aucta.handgrenades.models.User;
 import dev.aucta.handgrenades.repositories.UserRepository;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +22,22 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    public User getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
+            CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return repository.findByUsername(userDetails.getUsername());
+        }
+        return null;
+    }
+
     public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getNewPassword()));
         return repository.save(user);
     }
 
     public Page<User> getAll(Pageable pageable) {
+        System.out.println(getCurrentUser().getUsername());
         return repository.findAll(pageable);
     }
 
@@ -33,7 +46,7 @@ public class UserService {
     }
 
     public User update(User user) {
-        if(user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
+        if (user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getNewPassword()));
         }
         return repository.save(user);
@@ -61,7 +74,7 @@ public class UserService {
         return repository.save(user);
     }
 
-    public User findByUsername(String username){
+    public User findByUsername(String username) {
         User user = repository.findByUsername(username);
         return user;
     }

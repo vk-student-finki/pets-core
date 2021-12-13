@@ -6,6 +6,7 @@ import dev.aucta.handgrenades.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.GET)
     public Page<User> getAll(
             @RequestParam("page") Integer page,
