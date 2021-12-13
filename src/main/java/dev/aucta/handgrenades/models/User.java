@@ -36,6 +36,12 @@ public class User extends CustomUserDetails {
     @Transient
     private String newPassword;
 
+    @Column(name = "EMAIL", unique = true)
+    private String email;
+
+    @Column(name="PHONE_NUMBER")
+    private String phoneNumber;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USERS_GROUPS",

@@ -33,6 +33,7 @@ public class UserController {
         return userService.getById(id);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path = "/create", method = RequestMethod.POST)
     public User create(
             @RequestBody User user

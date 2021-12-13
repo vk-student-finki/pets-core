@@ -48,6 +48,8 @@ public class UserService {
     public User update(User user) {
         if (user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getNewPassword()));
+        }else{
+            user.setPassword(repository.getById(user.getId()).getPassword());
         }
         return repository.save(user);
     }
