@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.aucta.handgrenades.auth.CustomUserDetails;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,11 @@ public class User extends CustomUserDetails {
     private String lastName;
 
     @Column(name = "PASSWORD")
+    @JsonIgnore
     private String password;
+
+    @Transient
+    private String newPassword;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

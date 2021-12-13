@@ -20,7 +20,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
 
     public User create(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getNewPassword()));
         return repository.save(user);
     }
 
@@ -33,7 +33,9 @@ public class UserService {
     }
 
     public User update(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getNewPassword()));
+        }
         return repository.save(user);
     }
 
