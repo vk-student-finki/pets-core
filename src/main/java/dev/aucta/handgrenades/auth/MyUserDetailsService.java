@@ -33,4 +33,5 @@ public class MyUserDetailsService implements UserDetailsService {
         user.setPrivileges(privileges);
         return new CustomUserDetails(user);
     }
+
 }

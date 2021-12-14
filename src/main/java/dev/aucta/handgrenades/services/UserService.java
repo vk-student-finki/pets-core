@@ -80,4 +80,9 @@ public class UserService {
         User user = repository.findByUsername(username);
         return user;
     }
+    public User findByEmail(String email){
+        User user = repository.findByEmail(email);
+        return user;
+
+    }
 }
