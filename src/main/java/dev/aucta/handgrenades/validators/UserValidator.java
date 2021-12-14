@@ -15,16 +15,12 @@ public class UserValidator {
     UserService userService;
 
     public void validateUpdate(User user) throws HttpException {
-        validateCommonData(user);
         User oldUser = userService.getById(user.getId());
         if(!oldUser.getEmail().equals(user.getEmail()) || !oldUser.getUsername().equals(user.getUsername()))
             throw new BadRequestError("You are not allowed to change email address or username");
     }
     public void validateCreate(User user) throws BadRequestError{
-        validateCommonData(user);
-    }
-    public void validateCommonData(User user) throws BadRequestError{
-        if(user == null ) throw new BadRequestError("User must not be null");
+
         if(user.getUsername().isBlank()) throw new BadRequestError("Username is required");
         if(user.getNewPassword().isBlank()) throw new BadRequestError("Password is required");
         if(user.getEmail().isBlank()) throw new BadRequestError("Email is required");
