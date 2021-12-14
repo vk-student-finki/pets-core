@@ -28,6 +28,7 @@ public class PrivilegeController {
         return privilegeService.getAll(PageRequest.of(page, size));
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Privilege get(
             @PathVariable("id") Long id
@@ -35,6 +36,7 @@ public class PrivilegeController {
         return privilegeService.getById(id);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path = "/generatePrivileges", method = RequestMethod.POST)
     public Boolean generatePrivileges(){
         privilegeService.generatePrivileges();
