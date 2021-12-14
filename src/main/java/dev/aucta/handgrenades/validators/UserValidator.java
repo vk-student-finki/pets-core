@@ -20,11 +20,11 @@ public class UserValidator {
             throw new BadRequestError("You are not allowed to change email address or username");
     }
     public void validateCreate(User user) throws BadRequestError{
-
         if(user.getUsername().isBlank()) throw new BadRequestError("Username is required");
         if(user.getNewPassword().isBlank()) throw new BadRequestError("Password is required");
         if(user.getEmail().isBlank()) throw new BadRequestError("Email is required");
         if(user.getPhoneNumber().isBlank()) throw new BadRequestError("Phone number is required");
+        if(user.getGroups().isEmpty()) throw new BadRequestError("User must belong to a group");
     }
 
 
