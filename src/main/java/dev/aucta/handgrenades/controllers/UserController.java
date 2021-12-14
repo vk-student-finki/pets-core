@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.controllers;
 
+import dev.aucta.handgrenades.exceptions.BadRequestError;
 import dev.aucta.handgrenades.exceptions.ForbiddenAccess;
 import dev.aucta.handgrenades.exceptions.HttpException;
 import dev.aucta.handgrenades.models.Group;
@@ -43,7 +44,8 @@ public class UserController {
     @RequestMapping(path = "/create", method = RequestMethod.POST)
     public User create(
             @RequestBody User user
-    ) {
+    ) throws BadRequestError {
+        userValidator.validateCreate(user);
         return userService.create(user);
     }
 
