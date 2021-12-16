@@ -26,7 +26,6 @@ public class Grenade {
     private String description;
 
     @OneToMany(mappedBy = "grenade", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Attribute> attributes;
 
     @ManyToOne

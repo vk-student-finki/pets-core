@@ -1,5 +1,6 @@
 package dev.aucta.handgrenades.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,6 @@ public class Attribute {
 
     @ManyToOne
     @JoinColumn(name = "GRENADE_ID")
+    @JsonIgnore
     private Grenade grenade;
 }
