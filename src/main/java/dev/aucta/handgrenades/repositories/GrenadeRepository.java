@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GrenadeRepository extends JpaRepository<Grenade, Long> {
 
+    Grenade findFirstByProducerId(Long id);
+    Grenade findFirstByCountryId(Long id);
 }
