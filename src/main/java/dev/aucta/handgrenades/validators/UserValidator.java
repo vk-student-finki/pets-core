@@ -24,6 +24,4 @@ public class UserValidator {
         if(userService.findByEmail(user.getEmail()) != null) throw new BadRequestError("This email is taken, please choose a new one.");
         if(userService.findByUsername(user.getUsername()) != null) throw new BadRequestError("This username is taken, please choose another one.");
     }
-
-
 }

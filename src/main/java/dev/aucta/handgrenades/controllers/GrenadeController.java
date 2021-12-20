@@ -63,6 +63,13 @@ public class GrenadeController {
         return  grenadeService.filterGrenadesByProducer(id,PageRequest.of(page,size));
     }
 
-
+    @RequestMapping(path = "/filterByCountry", method = RequestMethod.GET)
+    public Page<Grenade> filterGrenadesByCountry(
+            @RequestParam(value="countryId") Long id,
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size
+    ){
+        return grenadeService.filterGrenadesByCountry(id, PageRequest.of(page, size));
+    }
 
 }

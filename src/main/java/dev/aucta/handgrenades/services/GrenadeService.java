@@ -53,4 +53,9 @@ public class GrenadeService {
         Page<Grenade> grenade = grenadeRepository.findAllByProducerId(id, pageable);
         return grenade;
     }
+
+    public Page<Grenade> filterGrenadesByCountry(Long id, Pageable pageable){
+        Page<Grenade> grenade = grenadeRepository.findAllByCountryId(id, pageable);
+        return grenade;
+    }
 }
