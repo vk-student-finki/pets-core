@@ -24,7 +24,7 @@ public class ProducerValidator{
     public void validateDelete(Long id) throws HttpException{
         if(grenadeRepository.findFirstByProducerId(id) != null) {
             if (grenadeRepository.findFirstByProducerId(id).getProducer().getId().equals(id)) {
-                throw new BadRequestError("This producer is connected to a grenade.Please delete all grenades connected to this producer and try again");
+                throw new BadRequestError("This producer is connected to a grenade. Please delete all grenades connected to this producer and try again.");
             }
         }
     }

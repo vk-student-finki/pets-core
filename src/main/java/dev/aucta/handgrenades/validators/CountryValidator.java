@@ -26,7 +26,7 @@ public class CountryValidator {
     public void validateDelete(Long id) throws HttpException{
         if(grenadeRepository.findFirstByCountryId(id) != null) {
             if (grenadeRepository.findFirstByCountryId(id).getCountry().getId().equals(id)) {
-                throw new BadRequestError("This country is connected to a grenade. Please delete all grenades connected to this country and try again");
+                throw new BadRequestError("This country is connected to a grenade. Please delete all grenades connected to this country and try again.");
             }
         }
     }
