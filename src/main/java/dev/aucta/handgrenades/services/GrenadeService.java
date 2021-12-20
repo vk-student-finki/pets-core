@@ -4,11 +4,8 @@ import dev.aucta.handgrenades.models.Grenade;
 import dev.aucta.handgrenades.repositories.GrenadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class GrenadeService {
@@ -49,13 +46,10 @@ public class GrenadeService {
     }
 
 
-    public Page<Grenade> filterGrenadesByProducer(Long id, Pageable pageable) {
-        Page<Grenade> grenade = grenadeRepository.findAllByProducerId(id, pageable);
-        return grenade;
-    }
 
-    public Page<Grenade> filterGrenadesByCountry(Long id, Pageable pageable){
-        Page<Grenade> grenade = grenadeRepository.findAllByCountryId(id, pageable);
-        return grenade;
+    public Page<Grenade> filterGrenades(Long producerID, Long countryID, Pageable pageable) {
+        if(countryID!= null & producerID!=null) return grenadeRepository.findAllByProducerIdAndCountryId(producerID,countryID,pageable);
+        if(producerID == null & countryID!=null) return grenadeRepository.findAllByCountryId(countryID,pageable);
+        else return grenadeRepository.findAllByProducerId(producerID,pageable);
     }
 }

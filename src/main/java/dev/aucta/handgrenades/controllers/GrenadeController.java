@@ -52,24 +52,16 @@ public class GrenadeController {
         return grenadeService.delete(id);
     }
 
-    @RequestMapping(path= "/filterByProducer", method = RequestMethod.GET)
-        public Page<Grenade> filterGrenadesByProducer(
-                @RequestParam(value="producerID" ) Long id,
-                @RequestParam("page") Integer page,
-                @RequestParam("size") Integer size
 
-            )
-    {
-        return  grenadeService.filterGrenadesByProducer(id,PageRequest.of(page,size));
-    }
-
-    @RequestMapping(path = "/filterByCountry", method = RequestMethod.GET)
-    public Page<Grenade> filterGrenadesByCountry(
-            @RequestParam(value="countryId") Long id,
+    @RequestMapping(path="/filter", method = RequestMethod.GET)
+    public Page<Grenade> filterGrenades(
+            @RequestParam(value="producerID", required = false) Long producerID,
+            @RequestParam(value="countryID", required = false) Long countryID,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    ){
-        return grenadeService.filterGrenadesByCountry(id, PageRequest.of(page, size));
+    )
+    {
+        return grenadeService.filterGrenades(producerID,countryID,PageRequest.of(page,size));
     }
 
 }
