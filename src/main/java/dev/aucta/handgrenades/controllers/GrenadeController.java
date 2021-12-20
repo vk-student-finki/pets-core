@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/grenades")
 public class GrenadeController {
@@ -49,4 +51,18 @@ public class GrenadeController {
     ) {
         return grenadeService.delete(id);
     }
+
+    @RequestMapping(path= "/filterByProducer", method = RequestMethod.GET)
+        public Page<Grenade> filterGrenadesByProducer(
+                @RequestParam(value="producerID" ) Long id,
+                @RequestParam("page") Integer page,
+                @RequestParam("size") Integer size
+
+            )
+    {
+        return  grenadeService.filterGrenadesByProducer(id,PageRequest.of(page,size));
+    }
+
+
+
 }

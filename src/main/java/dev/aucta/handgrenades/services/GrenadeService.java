@@ -4,8 +4,11 @@ import dev.aucta.handgrenades.models.Grenade;
 import dev.aucta.handgrenades.repositories.GrenadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GrenadeService {
@@ -43,5 +46,11 @@ public class GrenadeService {
     public Boolean delete(Long id) {
         grenadeRepository.deleteById(id);
         return Boolean.TRUE;
+    }
+
+
+    public Page<Grenade> filterGrenadesByProducer(Long id, Pageable pageable) {
+        Page<Grenade> grenade = grenadeRepository.findAllByProducerId(id, pageable);
+        return grenade;
     }
 }
