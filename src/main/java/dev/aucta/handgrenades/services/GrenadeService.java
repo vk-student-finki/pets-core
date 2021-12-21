@@ -29,7 +29,7 @@ public class GrenadeService {
         GrenadeSpecification specification = new GrenadeSpecification();
         while (iterator.hasNext()) {
             Map.Entry<String, Object> entry = iterator.next();
-            if(entry.getKey().equals("country.id") || entry.getKey().equals("producer.id")){
+            if(entry.getKey().equals("country.id")){
                 specification.add(new SearchCriteria(entry.getKey(), Long.valueOf(entry.getValue().toString()), SearchOperation.EQUAL));
             }else {
                 specification.add(new SearchCriteria(entry.getKey(), entry.getValue(), SearchOperation.MATCH));
