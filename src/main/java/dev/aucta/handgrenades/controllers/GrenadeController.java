@@ -1,5 +1,7 @@
 package dev.aucta.handgrenades.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.aucta.handgrenades.models.Grenade;
 import dev.aucta.handgrenades.services.GrenadeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -19,9 +22,12 @@ public class GrenadeController {
     @RequestMapping(method = RequestMethod.GET)
     public Page<Grenade> all(
             @RequestParam("page") Integer page,
-            @RequestParam("size") Integer size
-    ) {
-        return grenadeService.all(PageRequest.of(page, size));
+            @RequestParam("size") Integer size,
+            @RequestParam("searchParams") String filterMap
+    ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        HashMap<String, Object> searchParams = objectMapper.readValue(filterMap, HashMap.class);
+        return grenadeService.all(searchParams, PageRequest.of(page, size));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
