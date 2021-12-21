@@ -4,6 +4,9 @@ import dev.aucta.handgrenades.auth.CustomUserDetails;
 import dev.aucta.handgrenades.models.Group;
 import dev.aucta.handgrenades.models.User;
 import dev.aucta.handgrenades.repositories.UserRepository;
+import dev.aucta.handgrenades.repositories.specifications.SearchCriteria;
+import dev.aucta.handgrenades.repositories.specifications.SearchOperation;
+import dev.aucta.handgrenades.repositories.specifications.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -41,6 +48,16 @@ public class UserService {
         return repository.findAll(pageable);
     }
 
+    public Page<User> getAll(HashMap<String, Object> searchParams, Pageable pageable) {
+        Iterator<Map.Entry<String, Object>> iterator = searchParams.entrySet().iterator();
+        UserSpecification specification = new UserSpecification();
+        while (iterator.hasNext()) {
+            Map.Entry<String, Object> entry = iterator.next();
+            specification.add(new SearchCriteria(entry.getKey(), entry.getValue(), SearchOperation.MATCH));
+        }
+        return repository.findAll(specification, pageable);
+    }
+
     public User getById(Long id) {
         return repository.getById(id);
     }
@@ -48,7 +65,7 @@ public class UserService {
     public User update(User user) {
         if (user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getNewPassword()));
-        }else{
+        } else {
             user.setPassword(repository.getById(user.getId()).getPassword());
         }
         return repository.save(user);
@@ -80,7 +97,8 @@ public class UserService {
         User user = repository.findByUsername(username);
         return user;
     }
-    public User findByEmail(String email){
+
+    public User findByEmail(String email) {
         User user = repository.findByEmail(email);
         return user;
 

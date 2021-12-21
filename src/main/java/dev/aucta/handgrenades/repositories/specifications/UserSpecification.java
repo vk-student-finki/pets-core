@@ -14,9 +14,13 @@ public class UserSpecification implements Specification<User> {
 
     private List<SearchCriteria> list;
 
-    public UserSpecification() {this.list = new ArrayList<>();}
+    public UserSpecification() {
+        this.list = new ArrayList<>();
+    }
 
-    public void add(SearchCriteria criteria) {list.add(criteria);}
+    public void add(SearchCriteria criteria) {
+        list.add(criteria);
+    }
 
     @Override
     public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
