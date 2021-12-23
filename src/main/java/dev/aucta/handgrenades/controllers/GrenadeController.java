@@ -9,11 +9,21 @@ import dev.aucta.handgrenades.models.PictureType;
 import dev.aucta.handgrenades.services.GrenadeService;
 import dev.aucta.handgrenades.validators.GrenadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,6 +98,24 @@ public class GrenadeController {
         System.out.println(multipartFiles);
         grenadeService.uploadGrenadePictures(grenadeId, pictureType, multipartFiles);
         return null;
+    }
+
+    @RequestMapping(path = "/downloadGrenadeImage/{pictureId}", method = RequestMethod.GET)
+    public ResponseEntity uploadPictureAttachment(
+            @PathVariable("pictureId") Long pictureId
+    ) throws IOException {
+        File file = grenadeService.getPictureById(pictureId);
+        HttpHeaders headers = new HttpHeaders();
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType(Files.probeContentType(Path.of(file.getAbsolutePath()))))
+                .body(resource);
     }
 
 }
