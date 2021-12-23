@@ -37,7 +37,7 @@ public class Grenade {
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;
 
-    @OneToMany(mappedBy = "grenade", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "grenade", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Picture> pictures;
 }
 

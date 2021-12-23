@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.aucta.handgrenades.exceptions.HttpException;
 import dev.aucta.handgrenades.models.Grenade;
+import dev.aucta.handgrenades.models.Picture;
+import dev.aucta.handgrenades.models.PictureType;
 import dev.aucta.handgrenades.services.GrenadeService;
 import dev.aucta.handgrenades.validators.GrenadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +26,6 @@ public class GrenadeController {
 
     @Autowired
     GrenadeValidator grenadeValidator;
-
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<Grenade> all(
@@ -77,5 +79,15 @@ public class GrenadeController {
         return grenadeService.filterGrenades(producerID, countryID, PageRequest.of(page, size));
     }
 
+    @RequestMapping(path = "/uploadGrenadeImage/{grenadeId}", method = RequestMethod.PUT)
+    public List<Picture> uploadPictureAttachment(
+            @PathVariable("grenadeId") Long grenadeId,
+            @RequestParam("pictureType") PictureType pictureType,
+            @RequestParam("files") MultipartFile[] multipartFiles
+    ) {
+        System.out.println(multipartFiles);
+        grenadeService.uploadGrenadePictures(grenadeId, pictureType, multipartFiles);
+        return null;
+    }
 
 }
