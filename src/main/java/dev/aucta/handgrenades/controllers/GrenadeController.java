@@ -2,8 +2,10 @@ package dev.aucta.handgrenades.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.aucta.handgrenades.exceptions.HttpException;
 import dev.aucta.handgrenades.models.Grenade;
 import dev.aucta.handgrenades.services.GrenadeService;
+import dev.aucta.handgrenades.validators.GrenadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,10 @@ public class GrenadeController {
 
     @Autowired
     GrenadeService grenadeService;
+
+    @Autowired
+    GrenadeValidator grenadeValidator;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<Grenade> all(
@@ -40,14 +46,16 @@ public class GrenadeController {
     @RequestMapping(method = RequestMethod.POST)
     public Grenade create(
             @RequestBody Grenade grenade
-    ) {
+    ) throws HttpException {
+        grenadeValidator.validateCreate(grenade);
         return grenadeService.create(grenade);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public Grenade update(
             @RequestBody Grenade grenade
-    ) {
+    ) throws HttpException {
+        grenadeValidator.validateUpdate(grenade);
         return grenadeService.update(grenade);
     }
 
@@ -59,15 +67,15 @@ public class GrenadeController {
     }
 
 
-    @RequestMapping(path="/filter", method = RequestMethod.GET)
+    @RequestMapping(path = "/filter", method = RequestMethod.GET)
     public Page<Grenade> filterGrenades(
-            @RequestParam(value="producerID", required = false) Long producerID,
-            @RequestParam(value="countryID", required = false) Long countryID,
+            @RequestParam(value = "producerID", required = false) Long producerID,
+            @RequestParam(value = "countryID", required = false) Long countryID,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size
-    )
-    {
-        return grenadeService.filterGrenades(producerID,countryID,PageRequest.of(page,size));
+    ) {
+        return grenadeService.filterGrenades(producerID, countryID, PageRequest.of(page, size));
     }
+
 
 }

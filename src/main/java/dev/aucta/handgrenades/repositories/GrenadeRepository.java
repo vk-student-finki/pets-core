@@ -12,8 +12,10 @@ public interface GrenadeRepository extends JpaRepository<Grenade, Long>, JpaSpec
 
     Grenade findFirstByProducerId(Long id);
     Grenade findFirstByCountryId(Long id);
+    Grenade findFirstByName(String name);
 
     Page<Grenade> findAllByProducerId(Long id, Pageable pageable);
     Page<Grenade> findAllByCountryId(Long id, Pageable pageable);
     Page<Grenade> findAllByProducerIdAndCountryId(Long idP, Long idC, Pageable pageable);
+
 }

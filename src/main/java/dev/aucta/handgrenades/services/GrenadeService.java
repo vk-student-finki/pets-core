@@ -7,6 +7,7 @@ import dev.aucta.handgrenades.repositories.specifications.SearchCriteria;
 import dev.aucta.handgrenades.repositories.specifications.SearchOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,9 @@ public class GrenadeService {
         GrenadeSpecification specification = new GrenadeSpecification();
         while (iterator.hasNext()) {
             Map.Entry<String, Object> entry = iterator.next();
-            if(entry.getKey().equals("country.id") || entry.getKey().equals("producer.id")){
+            if(entry.getKey().equals("country.id") || entry.getKey().equals("producer.id")) {
                 specification.add(new SearchCriteria(entry.getKey(), Long.valueOf(entry.getValue().toString()), SearchOperation.EQUAL));
-            }else {
+            } else {
                 specification.add(new SearchCriteria(entry.getKey(), entry.getValue(), SearchOperation.MATCH));
             }
         }
@@ -49,6 +50,7 @@ public class GrenadeService {
                 attribute.setGrenade(grenade);
             });
         }
+
         return grenadeRepository.save(grenade);
     }
 
@@ -72,4 +74,6 @@ public class GrenadeService {
         if (producerID == null & countryID != null) return grenadeRepository.findAllByCountryId(countryID, pageable);
         else return grenadeRepository.findAllByProducerId(producerID, pageable);
     }
+
+
 }

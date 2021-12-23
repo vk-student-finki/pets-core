@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 public class Grenade {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
