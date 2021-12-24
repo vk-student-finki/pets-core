@@ -66,8 +66,8 @@ public class GrenadeController {
     @RequestMapping(method = RequestMethod.PUT)
     public Grenade update(
             @RequestBody Grenade grenade
-    ) throws HttpException {
-        grenadeValidator.validateUpdate(grenade);
+    ) {
+
         return grenadeService.update(grenade);
     }
 
