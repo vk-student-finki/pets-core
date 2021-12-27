@@ -67,7 +67,6 @@ public class GrenadeController {
     public Grenade update(
             @RequestBody Grenade grenade
     ) {
-
         return grenadeService.update(grenade);
     }
 
@@ -100,6 +99,7 @@ public class GrenadeController {
         return null;
     }
 
+
     @RequestMapping(path = "/downloadGrenadeImage/{pictureId}", method = RequestMethod.GET)
     public ResponseEntity uploadPictureAttachment(
             @PathVariable("pictureId") Long pictureId
@@ -116,6 +116,14 @@ public class GrenadeController {
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType(Files.probeContentType(Path.of(file.getAbsolutePath()))))
                 .body(resource);
+    }
+
+    @RequestMapping(path="removePicture/{grenadeId}", method = RequestMethod.DELETE)
+    public Grenade removePicture(
+            @PathVariable("grenadeId") Long grenadeId,
+            @RequestBody Picture picture
+    ){
+        return grenadeService.removePicture(grenadeId, picture);
     }
 
 }

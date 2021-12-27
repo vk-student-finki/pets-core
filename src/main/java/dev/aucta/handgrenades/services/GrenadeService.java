@@ -152,4 +152,14 @@ public class GrenadeService {
         File file = new File(picture.getFilePath());
         return file;
     }
+
+
+    public Grenade removePicture(Long grenadeId, Picture picture) {
+        Grenade grenade = grenadeRepository.getById(grenadeId);
+        grenade.getPictures().removeIf(picture1 -> picture1.getId().equals(picture.getId()));
+        grenadeRepository.save(grenade);
+
+        return grenade;
+
+    }
 }
