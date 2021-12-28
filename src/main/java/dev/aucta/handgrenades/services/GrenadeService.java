@@ -54,7 +54,7 @@ public class GrenadeService {
             if (entry.getKey().equals("country.id") || entry.getKey().equals("producer.id")) {
                 specification.add(new SearchCriteria(entry.getKey(), Long.valueOf(entry.getValue().toString()), SearchOperation.EQUAL));
             }
-            if (entry.getKey().equals("searchByAttributes")){
+            else if (entry.getKey().equals("searchByAttributes")){
                 attributeSpecification.add(new SearchCriteria("value", entry.getValue().toString(), SearchOperation.MATCH));
             } else {
                 specification.add(new SearchCriteria(entry.getKey(), entry.getValue(), SearchOperation.MATCH));
