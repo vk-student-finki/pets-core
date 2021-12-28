@@ -6,6 +6,7 @@ import dev.aucta.handgrenades.services.AttributeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,14 +32,14 @@ public class AttributeTypeController {
     ) {
         return attributeTypeService.findAllById(id);
     }
-
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.POST)
     public AttributeType create(
             @RequestBody AttributeType attributeType
     ) {
         return attributeTypeService.create(attributeType);
     }
-
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.PUT)
     public AttributeType update(
             @RequestBody AttributeType attributeType

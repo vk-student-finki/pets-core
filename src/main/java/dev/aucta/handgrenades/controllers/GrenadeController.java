@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,6 +56,7 @@ public class GrenadeController {
         return grenadeService.get(id);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.POST)
     public Grenade create(
             @RequestBody Grenade grenade
@@ -63,6 +65,7 @@ public class GrenadeController {
         return grenadeService.create(grenade);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.PUT)
     public Grenade update(
             @RequestBody Grenade grenade
@@ -70,6 +73,7 @@ public class GrenadeController {
         return grenadeService.update(grenade);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public Boolean delete(
             @PathVariable("id") Long id
@@ -88,6 +92,7 @@ public class GrenadeController {
         return grenadeService.filterGrenades(producerID, countryID, PageRequest.of(page, size));
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path = "/uploadGrenadeImage/{grenadeId}", method = RequestMethod.PUT)
     public List<Picture> uploadPictureAttachment(
             @PathVariable("grenadeId") Long grenadeId,
@@ -118,6 +123,7 @@ public class GrenadeController {
                 .body(resource);
     }
 
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(path="removePicture/{grenadeId}", method = RequestMethod.DELETE)
     public Grenade removePicture(
             @PathVariable("grenadeId") Long grenadeId,

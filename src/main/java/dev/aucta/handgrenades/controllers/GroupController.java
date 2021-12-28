@@ -16,7 +16,7 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
-    @Secured("ROLE_ADMINISTRATOR")
+    @Secured({"ROLE_ADMINISTRATOR"})
     @RequestMapping(method = RequestMethod.GET)
     public Page<Group> getAll(
             @RequestParam("page") Integer page,
