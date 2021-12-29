@@ -132,4 +132,5 @@ public class GrenadeController {
         return grenadeService.removePicture(grenadeId, picture);
     }
 
+
 }
