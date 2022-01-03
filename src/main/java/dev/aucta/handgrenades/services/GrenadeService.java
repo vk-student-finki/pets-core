@@ -35,8 +35,6 @@ public class GrenadeService {
     @Autowired
     AttributeRepository attributeRepository;
 
-
-
     @Value("${hand-grenades.file-system.pictures}")
     String HAND_GRENADES_PICTURES_LOCATION;
 

@@ -39,4 +39,8 @@ public class PrivilegeService {
         if (privilegeRepository.findByName(userPrivilege.getName()) == null)
             create(userPrivilege);
     }
+
+    public Privilege findByName(String name) {
+        return privilegeRepository.findByName(name);
+    }
 }

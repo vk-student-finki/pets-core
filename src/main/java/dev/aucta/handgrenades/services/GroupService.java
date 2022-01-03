@@ -53,4 +53,8 @@ public class GroupService {
         groupRepository.deleteById(id);
         return Boolean.TRUE;
     }
+
+    public Group findByName(String name) {
+        return groupRepository.findFirstByName(name);
+    }
 }

@@ -103,4 +103,8 @@ public class UserService {
         return user;
 
     }
+
+    public User getUserByUsername(String root) {
+        return repository.findByUsername(root);
+    }
 }

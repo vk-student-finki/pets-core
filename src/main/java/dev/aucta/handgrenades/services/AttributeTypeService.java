@@ -1,6 +1,7 @@
 package dev.aucta.handgrenades.services;
 
 
+import dev.aucta.handgrenades.models.Attribute;
 import dev.aucta.handgrenades.models.AttributeType;
 import dev.aucta.handgrenades.repositories.AttributeTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,7 @@ public class AttributeTypeService {
         return attributeTypeRepository.save(attributeType);
     }
 
+    public AttributeType findByName(String name) {
+        return attributeTypeRepository.findFirstByName(name);
+    }
 }

@@ -14,4 +14,5 @@ public interface AttributeTypeRepository extends JpaRepository<AttributeType, Lo
 
     List<AttributeType> findAllById(Long id);
 
+    AttributeType findFirstByName(String name);
 }
