@@ -23,7 +23,7 @@ public class Grenade {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length = 2048)
     private String description;
 
     @OneToMany(mappedBy = "grenade", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)

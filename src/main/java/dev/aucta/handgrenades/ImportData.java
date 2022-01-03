@@ -24,6 +24,13 @@ public class ImportData {
             privilegeAdministration = privilegeService.create(privilege);
         }
 
+        Privilege privilegeUser = privilegeService.findByName("USER");
+        if (privilegeUser == null) {
+            Privilege privilege = new Privilege();
+            privilege.setName("USER");
+            privilegeUser = privilegeService.create(privilege);
+        }
+
         Group adminGroup = groupService.findByName("ADMINISTRATORS");
         if(adminGroup == null){
             adminGroup = new Group();
@@ -31,6 +38,15 @@ public class ImportData {
             adminGroup.setCode("ADMINISTRATORS");
             adminGroup.setPrivileges(Collections.singletonList(privilegeAdministration));
             adminGroup = groupService.create(adminGroup);
+        }
+
+        Group userGroup = groupService.findByName("USERS");
+        if(userGroup == null){
+            userGroup = new Group();
+            userGroup.setName("USERS");
+            userGroup.setCode("USERS");
+            userGroup.setPrivileges(Collections.singletonList(privilegeUser));
+            userGroup = groupService.create(userGroup);
         }
 
         User rootUser = userService.getUserByUsername("root");
