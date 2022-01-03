@@ -4,5 +4,5 @@ public enum PictureType {
     GRENADE,
     PACKAGING,
     DETONATOR,
-    OTHEdR
+    OTHER
 }

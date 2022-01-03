@@ -11,12 +11,9 @@ import dev.aucta.handgrenades.repositories.specifications.AttributeSpecification
 import dev.aucta.handgrenades.repositories.specifications.GrenadeSpecification;
 import dev.aucta.handgrenades.repositories.specifications.SearchCriteria;
 import dev.aucta.handgrenades.repositories.specifications.SearchOperation;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +34,8 @@ public class GrenadeService {
 
     @Autowired
     AttributeRepository attributeRepository;
+
+
 
     @Value("${hand-grenades.file-system.pictures}")
     String HAND_GRENADES_PICTURES_LOCATION;
@@ -163,5 +162,7 @@ public class GrenadeService {
 
     }
 
-
+    public PictureType[] pictureTypes() {
+        return  PictureType.values();
+    }
 }

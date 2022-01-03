@@ -132,5 +132,9 @@ public class GrenadeController {
         return grenadeService.removePicture(grenadeId, picture);
     }
 
+    @RequestMapping(path = "pictureTypes", method = RequestMethod.GET)
+    public PictureType[] pictureTypes (){
+        return grenadeService.pictureTypes();
+    }
 
 }
