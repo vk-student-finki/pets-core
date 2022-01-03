@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new SimpleCorsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests().antMatchers(
                         "/auth/authenticate").permitAll()
+                .antMatchers("/grenades/filter").fullyAuthenticated()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()
