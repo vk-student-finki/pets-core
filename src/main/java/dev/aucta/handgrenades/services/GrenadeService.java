@@ -164,4 +164,10 @@ public class GrenadeService {
         return  PictureType.values();
     }
 
+
+    public void updatePictureType (Long grenadeId, Long pictureId, PictureType pictureType)
+    {
+        picturesRepository.getById(pictureId).setType(pictureType);
+
+    }
 }

@@ -138,5 +138,13 @@ public class GrenadeController {
         return grenadeService.pictureTypes();
     }
 
+    @RequestMapping(path = "updatePictureType/{grenadeId}", method = RequestMethod.PUT)
+    public void updatePictureType(
+            @PathVariable("grenadeId") Long grenadeId,
+            @RequestParam("pictureId") Long pictureId,
+            @RequestParam("pictureType") PictureType pictureType
+    ){
+        grenadeService.updatePictureType(grenadeId, pictureId, pictureType);
+    }
 
 }
