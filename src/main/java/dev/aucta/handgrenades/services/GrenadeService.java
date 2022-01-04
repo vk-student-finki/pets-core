@@ -163,4 +163,5 @@ public class GrenadeService {
     public PictureType[] pictureTypes() {
         return  PictureType.values();
     }
+
 }

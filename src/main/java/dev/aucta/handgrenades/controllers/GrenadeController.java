@@ -2,6 +2,7 @@ package dev.aucta.handgrenades.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.istack.NotNull;
 import dev.aucta.handgrenades.exceptions.HttpException;
 import dev.aucta.handgrenades.models.Grenade;
 import dev.aucta.handgrenades.models.Picture;
@@ -21,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,9 +96,10 @@ public class GrenadeController {
     @RequestMapping(path = "/uploadGrenadeImage/{grenadeId}", method = RequestMethod.PUT)
     public List<Picture> uploadPictureAttachment(
             @PathVariable("grenadeId") Long grenadeId,
-            @RequestParam("pictureType") PictureType pictureType,
+            @RequestParam(value = "pictureType", required = false) PictureType pictureType,
             @RequestParam("files") MultipartFile[] multipartFiles
-    ) {
+    )  {
+
         System.out.println(multipartFiles);
         grenadeService.uploadGrenadePictures(grenadeId, pictureType, multipartFiles);
         return null;
@@ -136,5 +137,6 @@ public class GrenadeController {
     public PictureType[] pictureTypes (){
         return grenadeService.pictureTypes();
     }
+
 
 }
