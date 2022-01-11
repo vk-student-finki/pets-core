@@ -5,6 +5,7 @@ import dev.aucta.handgrenades.auth.JwtUtil;
 import dev.aucta.handgrenades.auth.MyUserDetailsService;
 import dev.aucta.handgrenades.auth.models.AuthenticationRequest;
 import dev.aucta.handgrenades.auth.models.AuthenticationResponse;
+import dev.aucta.handgrenades.auth.service.MfaService;
 import dev.aucta.handgrenades.models.User;
 import dev.aucta.handgrenades.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +33,42 @@ public class AuthController {
     private MyUserDetailsService userDetailsService;
 
     @Autowired
+    private MfaService mfaService;
+
+    @Autowired
     UserService userService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             User user = userService.findByUsername(authenticationRequest.getUsername());
-            if(user == null){
+            if (user == null) {
                 throw new Exception("Username does not exist");
             }
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
-        }
-        catch (BadCredentialsException e) {
+        } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password");
         }
 
         final CustomUserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        if (mfaService.isEnabled(userDetails.getUsername())) {
+            if (authenticationRequest.getMfaToken() == null) {
+                return ResponseEntity.ok(new AuthenticationResponse(null, "MFA_REQUIRED"));
+            } else if (mfaService.verifyCode(userDetails.getUsername(), authenticationRequest.getMfaToken())) {
+                final String jwt = jwtTokenUtil.generateToken(userDetails);
+                return ResponseEntity.ok(new AuthenticationResponse(jwt));
+            } else if (!mfaService.verifyCode(userDetails.getUsername(), authenticationRequest.getMfaToken())) {
+                return ResponseEntity.ok(new AuthenticationResponse(null, "MFA_TOKEN_INVALID"));
+            } else {
+                return ResponseEntity.ok(new AuthenticationResponse(null, "MFA_REQUIRED"));
+            }
+        } else {
+            final String jwt = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        }
     }
 }

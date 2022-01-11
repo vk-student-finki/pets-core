@@ -1,6 +1,7 @@
 package dev.aucta.handgrenades.services;
 
 import dev.aucta.handgrenades.auth.CustomUserDetails;
+import dev.aucta.handgrenades.auth.service.MfaService;
 import dev.aucta.handgrenades.models.Group;
 import dev.aucta.handgrenades.models.User;
 import dev.aucta.handgrenades.repositories.UserRepository;
@@ -29,6 +30,9 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    MfaService mfaService;
+
     public User getCurrentUser() {
         if (SecurityContextHolder.getContext().getAuthentication() != null &&
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
@@ -40,6 +44,8 @@ public class UserService {
 
     public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getNewPassword()));
+        user.setMfaEnabled(Boolean.TRUE);
+        user.setMfaKey(mfaService.registerUser());
         return repository.save(user);
     }
 

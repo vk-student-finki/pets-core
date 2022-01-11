@@ -20,6 +20,7 @@ public class CustomUserDetails implements UserDetails {
     private String username;
     private String firstName;
     private String lastName;
+    private Boolean mfaEnabled;
     private List<Group> groups;
     private Long userId;
 
@@ -32,6 +33,7 @@ public class CustomUserDetails implements UserDetails {
         this.lastName = user.getLastName();
         this.password = user.getPassword();
         this.groups = user.getGroups();
+        this.mfaEnabled = user.getMfaEnabled();
         this.authorities = translate(user.getPrivileges());
     }
 

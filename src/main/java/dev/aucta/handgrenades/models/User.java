@@ -42,6 +42,12 @@ public class User extends CustomUserDetails {
     @Column(name="PHONE_NUMBER")
     private String phoneNumber;
 
+    @Column(name="MFA_KEY")
+    private String mfaKey;
+
+    @Column(name="MFA_ENABLED")
+    private Boolean mfaEnabled;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USERS_GROUPS",
