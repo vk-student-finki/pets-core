@@ -167,7 +167,9 @@ public class GrenadeService {
 
     public void updatePictureType (Long grenadeId, Long pictureId, PictureType pictureType)
     {
-        picturesRepository.getById(pictureId).setType(pictureType);
+        Picture picture = picturesRepository.getById(pictureId);
+        picture.setType(pictureType);
+        picturesRepository.save(picture);
 
     }
 }
