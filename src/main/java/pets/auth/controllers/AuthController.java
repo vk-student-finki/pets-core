@@ -6,6 +6,7 @@ import pets.auth.MyUserDetailsService;
 import pets.auth.models.AuthenticationRequest;
 import pets.auth.models.AuthenticationResponse;
 import pets.auth.service.MfaService;
+import pets.exceptions.BadRequestError;
 import pets.models.User;
 import pets.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,13 @@ public class AuthController {
         try {
             User user = userService.findByUsername(authenticationRequest.getUsername());
             if (user == null) {
-                throw new Exception("Username does not exist");
+                throw new BadRequestError("Username does not exist");
             }
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password");
+            throw new BadRequestError("Incorrect username or password");
         }
 
         final CustomUserDetails userDetails = userDetailsService

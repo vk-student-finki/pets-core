@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long>, JpaSpecificationExecutor<Pet> {
 
@@ -16,7 +18,6 @@ public interface PetRepository extends JpaRepository<Pet, Long>, JpaSpecificatio
 
     Page<Pet> findAllByCountryId(Long id, Pageable pageable);
 
-
-
+    List<Pet> findAllByAddedForApplicationIsTrue();
 
 }

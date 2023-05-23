@@ -28,13 +28,19 @@ public class Pet {
     @OneToMany(mappedBy = "pet", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Attribute> attributes;
 
-
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;
 
     @OneToMany(mappedBy = "pet", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Picture> pictures;
+
+    @Column(name="ADDED_FOR_APPLICATION")
+    private Boolean addedForApplication;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 }
 
 

@@ -63,6 +63,17 @@ public class ImportData {
             rootUser.setGroups(Collections.singletonList(adminGroup));
             rootUser = userService.create(rootUser);
         }
+        User user = userService.getUserByUsername("user");
+        if (user == null) {
+            user = new User();
+            user.setEmail("usermail@mail.com");
+            user.setFirstName("User");
+            user.setLastName("User");
+            user.setUsername("user");
+            user.setNewPassword("pass123");
+            user.setGroups(Collections.singletonList(userGroup));
+            user = userService.create(user);
+        }
     }
 
     public static void importAttributeTypes(AttributeTypeService attributeTypeService) {
@@ -85,4 +96,6 @@ public class ImportData {
             }
         });
     }
+
 }
+
